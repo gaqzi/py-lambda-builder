@@ -1,0 +1,9 @@
+FROM lambci/lambda:build-python3.6
+
+ADD install-auditwheel.sh /tmp/
+
+RUN /tmp/install-auditwheel.sh && rm /tmp/install-auditwheel.sh
+
+ADD build.sh /tmp
+
+ENTRYPOINT ["/tmp/build.sh", "-p", "3.6"]

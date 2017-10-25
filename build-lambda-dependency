@@ -1,0 +1,19 @@
+#!/bin/bash
+
+if [ "$#" -lt 2 ] ; then
+    "Usage: $(basename $0) <python version> <pypi package> [<pypi package> ...]"
+    "  Currently supported Python version: 2.7 and 3.6"
+    exit 1
+fi
+
+WHEELHOUSE="$(pwd)/wheelhouse"
+BUILDER_CONTAINER=gaqzi/lambda-builder
+
+mkdir -p ${WHEELHOUSE}
+
+PYTHON_VERSION=$1
+shift
+
+docker run \
+    -v "${WHEELHOUSE}:/wheelhouse" \
+    ${BUILDER_CONTAINER}:python-${PYTHON_VERSION} $@

@@ -1,0 +1,9 @@
+FROM lambci/lambda:build-python2.7
+
+ADD install-auditwheel.sh /tmp/
+
+RUN /tmp/install-auditwheel.sh && rm /tmp/install-auditwheel.sh
+
+ADD build.sh /tmp
+
+ENTRYPOINT ["/tmp/build.sh"]
